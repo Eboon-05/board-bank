@@ -31,4 +31,20 @@ class GamesController extends Controller
 
         return redirect()->route('games.show', $game);
     }
+
+    public function join(Request $request) {
+        $request->validate([
+            'code' => 'required'
+        ]);
+
+        $game = Game::where('code', $request->code)->first();
+
+        Player::create([
+            'game_id' => $game->id,
+            'user_id' => Auth::id(),
+            'balance' => 0
+        ]);
+
+        return redirect()->route('games.show', $game);
+    }
 }

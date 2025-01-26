@@ -30,4 +30,31 @@ class ExampleTest extends TestCase
             'balance' => 0
         ]);
     }
+
+    public function test_user_can_join_game() {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+
+        $this->actingAs($user1)
+            ->post(route('games.store'), [
+                'code' => '123456'
+            ])
+            ->assertFound();
+
+        $this->actingAs($user2)
+            ->post(route('games.join'), [
+                'code' => '123456'
+            ])
+            ->assertFound();
+
+        $this->assertDatabaseHas('players', [
+            'user_id' => $user1->id,
+            'balance' => 0
+        ]);
+
+        $this->assertDatabaseHas('players', [
+            'user_id' => $user2->id,
+            'balance' => 0
+        ]);
+    }
 }

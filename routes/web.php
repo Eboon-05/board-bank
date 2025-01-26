@@ -17,4 +17,10 @@ Route::view('profile', 'profile')
 Route::resource('games', GamesController::class)
     ->middleware(['auth']);
 
+Route::prefix('games')
+    ->controller(GamesController::class)
+    ->group(function () {
+        Route::post('/join', 'join')->name('games.join');
+    });
+
 require __DIR__.'/auth.php';
