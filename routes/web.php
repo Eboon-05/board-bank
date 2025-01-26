@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\GamesController;
+
 Route::view('/', 'welcome');
 
 Route::view('dashboard', 'dashboard')
@@ -11,5 +13,8 @@ Route::view('dashboard', 'dashboard')
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+Route::resource('games', GamesController::class)
+    ->middleware(['auth']);
 
 require __DIR__.'/auth.php';

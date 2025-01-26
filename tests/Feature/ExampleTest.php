@@ -2,18 +2,32 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+
+use App\Models\User;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    public function test_user_can_create_game(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post(route('games.store'), [
+                'code' => '123456'
+            ])
+            ->assertFound();
+
+        $this->assertDatabaseHas('games', [
+            'code' => '123456'
+        ]);
+
+        $this->assertDatabaseHas('players', [
+            'user_id' => $user->id,
+            'balance' => 0
+        ]);
     }
 }
