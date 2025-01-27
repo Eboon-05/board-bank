@@ -21,6 +21,8 @@ Route::prefix('games')
     ->controller(GamesController::class)
     ->group(function () {
         Route::post('/join', 'join')->name('games.join');
+
+        Route::post('/{game}/bank', 'bank_movement')->name('games.bank');
     });
 
 require __DIR__.'/auth.php';
