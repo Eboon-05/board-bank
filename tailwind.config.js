@@ -1,6 +1,8 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
+const colors = require('tailwindcss/colors')
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -12,9 +14,19 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Lato', ...defaultTheme.fontFamily.sans],
+                rubik: ['Rubik', ...defaultTheme.fontFamily.sans],
+                geo: ['Geo', ...defaultTheme.fontFamily.mono],
             },
         },
+        colors: {
+            primary: 'hsl(11, 87, 60)',
+            'primary-light': 'hsl(18, 100, 80)',
+            white: colors.white,
+            black: colors.black,
+            'secondary': 'hsl(0, 0, 85)',
+            'light-gray': 'hsl(0, 0, 95)',
+        }
     },
 
     plugins: [forms],
