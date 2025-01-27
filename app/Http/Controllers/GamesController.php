@@ -16,17 +16,19 @@ class GamesController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'code' => 'required'
+            'code' => 'required',
+            'initial_balance' => 'required',
         ]);
 
         $game = Game::create([
-            'code' => $request->code
+            'code' => $request->code,
+            'initial_balance' => $request->initial_balance,
         ]);
 
         Player::create([
             'game_id' => $game->id,
             'user_id' => Auth::id(),
-            'balance' => 0
+            'balance' => $request->initial_balance,
         ]);
 
         return redirect()->route('games.show', $game);
@@ -42,7 +44,7 @@ class GamesController extends Controller
         Player::create([
             'game_id' => $game->id,
             'user_id' => Auth::id(),
-            'balance' => 0
+            'balance' => $game->initial_balance,
         ]);
 
         return redirect()->route('games.show', $game);

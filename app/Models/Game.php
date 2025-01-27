@@ -9,7 +9,8 @@ use App\Models\Player;
 class Game extends Model
 {
     protected $fillable = [
-        'code'
+        'code',
+        'initial_balance'
     ];
 
     public function players() {
