@@ -20,10 +20,9 @@ export default {
             },
         },
         colors: {
+            ...colors,
             primary: 'hsl(11, 87, 60)',
             'primary-light': 'hsl(18, 100, 80)',
-            white: colors.white,
-            black: colors.black,
             'secondary': 'hsl(0, 0, 85)',
             'light-gray': 'hsl(0, 0, 95)',
         }
