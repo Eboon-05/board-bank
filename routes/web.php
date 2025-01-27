@@ -23,6 +23,7 @@ Route::prefix('games')
         Route::post('/join', 'join')->name('games.join');
 
         Route::post('/{game}/bank', 'bank_movement')->name('games.bank');
+        Route::post('/{game}/send', 'send_money')->name('games.send');
     });
 
 require __DIR__.'/auth.php';

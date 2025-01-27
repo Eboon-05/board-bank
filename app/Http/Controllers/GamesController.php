@@ -16,7 +16,8 @@ class GamesController extends Controller
         return view('games.show', compact('game'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'code' => 'required|unique:App\Models\Game,code',
             'initial_balance' => 'required',
@@ -36,7 +37,8 @@ class GamesController extends Controller
         return redirect()->route('games.show', $game);
     }
 
-    public function join(Request $request) {
+    public function join(Request $request)
+    {
         $request->validate([
             'code' => 'required'
         ]);
@@ -52,7 +54,8 @@ class GamesController extends Controller
         return redirect()->route('games.show', $game);
     }
 
-    public function bank_movement(Request $request, Game $game) {
+    public function bank_movement(Request $request, Game $game)
+    {
         $request->validate([
             'amount' => 'required|numeric',
             'type' => 'required|int'
@@ -71,6 +74,23 @@ class GamesController extends Controller
             $game->userPlayer->balance -= $request->amount;
         }
 
+        $game->userPlayer->save();
+
+        return redirect()->route('games.show', $game);
+    }
+
+    public function send_money(Request $request, Game $game)
+    {
+        $request->validate([
+            'amount' => 'required|numeric',
+            'to' => 'required|int',
+        ]);
+
+        $to = Player::find($request->to);
+        $to->balance += $request->amount;
+        $to->save();
+
+        $game->userPlayer->balance -= $request->amount;
         $game->userPlayer->save();
 
         return redirect()->route('games.show', $game);
