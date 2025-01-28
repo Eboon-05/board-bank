@@ -1,17 +1,29 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    <form class='mx-4 border-primary border-2 shadow-lg rounded-3xl overflow-hidden'>
+        @csrf
+        <div class='p-4 pb-0'>
+            <label for='code'>Code</label>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+            <input
+                type='text'
+                name='code'
+                class='mt-2 bg-gray-200 rounded-md p-2 w-full border-0 outline-none focus:ring-2 focus:ring-secondary'
+            />
         </div>
-    </div>
+
+        <div class='grid grid-cols-2 font-rubik'>
+            <button
+                class='mt-4 bg-primary text-white p-2'
+            >
+                Create
+            </button>
+
+            <button
+                type='submit'
+                class='mt-4 bg-light-gray p-2'
+            >
+                Join
+            </button>
+        </div>
+    </form>
 </x-app-layout>

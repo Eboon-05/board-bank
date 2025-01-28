@@ -23,7 +23,9 @@ export default {
             ...colors,
             primary: 'hsl(11, 87, 60)',
             'primary-light': 'hsl(18, 100, 80)',
-            'secondary': 'hsl(0, 0, 85)',
+            'primary-dark': 'hsl(18, 100, 50)',
+            secondary: 'hsl(208, 100, 60)',
+            'dark-gray': 'hsl(0, 0, 85)',
             'light-gray': 'hsl(0, 0, 95)',
         }
     },
