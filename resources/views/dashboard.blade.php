@@ -12,11 +12,12 @@
         </div>
 
         <div class='grid grid-cols-2 font-rubik'>
-            <button
+            <a
+                href="{{ route('games.create') }}"
                 class='mt-4 bg-primary text-white p-2'
             >
                 Create
-            </button>
+            </a>
 
             <button
                 type='submit'
