@@ -7,7 +7,7 @@
         @apply font-rubik;
     }
 
-    a, button, input {
+    button, input {
         @apply rounded-lg p-2;
     }
 }

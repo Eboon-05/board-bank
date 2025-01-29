@@ -19,12 +19,6 @@
         ])
     </head>
     <body class="font-sans antialiased">
-        <header class='p-4'>
-            <h1 class='text-2xl font-bold'>
-                Board bank
-            </h1>
-        </header>
-
         <main>
             {{ $slot }}
         </main>
