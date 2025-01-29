@@ -11,3 +11,9 @@
         @apply rounded-lg p-2;
     }
 }
+
+@layer utilities {
+    .bg-gradient {
+        background: linear-gradient(270deg, #F2613F 0%, #C62300 100%);
+    }
+}
