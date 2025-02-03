@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\BankTransaction;
+use App\Models\PlayerTransaction;
 
 use App\BankMovementType;
 
@@ -132,6 +133,13 @@ class GamesController extends Controller
 
         $game->userPlayer->balance -= $request->amount;
         $game->userPlayer->save();
+
+        PlayerTransaction::create([
+            'game_id' => $game->id,
+            'from_player_id' => $game->userPlayer->id,
+            'to_player_id' => $to->id,
+            'amount' => $request->amount,
+        ]);
 
         return redirect()->route('games.show', $game);
     }

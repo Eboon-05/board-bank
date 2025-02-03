@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\BankMovementType;
 use App\Models\Player;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -53,5 +54,107 @@ class PlayerTest extends TestCase
             'user_id' => $user2->id,
             'balance' => 1500
         ]);
+
+        $this->assertDatabaseHas('player_transactions', [
+            'game_id' => 1,
+            'from_player_id' => $user->players->first()->id,
+            'to_player_id' => $user2->players->first()->id,
+            'amount' => 500
+        ]);
+    }
+
+    public function test_get_player_bank_transactions() {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post(route('games.store'), [
+                'code' => '123456',
+                'initial_balance' => 1000
+            ])
+            ->assertFound();
+
+        $this->actingAs($user)
+            ->post(route('games.bank', ['game' => 1]), [
+                'amount' => '1000',
+                'type' => BankMovementType::Withdraw->value,
+            ])
+            ->assertFound();
+
+        $player = $user->players->first();
+        $this->assertNotEmpty($player->bankTransactions);
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $player->bankTransactions);
+        $this->assertInstanceOf('App\Models\BankTransaction', $player->bankTransactions->first());
+    }
+
+    public function test_get_player_player_transactions() {
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post(route('games.store'), [
+                'code' => '123456',
+                'initial_balance' => 1000
+            ])
+            ->assertFound();
+
+        
+        $this->actingAs($user2)
+            ->post(route('games.join'), [
+                'code' => '123456'
+            ])
+            ->assertFound();
+
+        $this->actingAs($user)
+            ->post(route('games.send', ['game' => 1]), [
+                'amount' => '500',
+                'to' => $user2->players->first()->id,
+            ])
+            ->assertFound();
+
+        $player1 = $user->players->first();
+        $this->assertInstanceOf('Illuminate\Support\Collection', $player1->getPlayerTransactions());
+    }
+
+    public function test_get_player_movements() {
+        $user = User::factory()->create();
+        $user2 = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post(route('games.store'), [
+                'code' => '123456',
+                'initial_balance' => 1000
+            ])
+            ->assertFound();
+
+        
+        $this->actingAs($user2)
+            ->post(route('games.join'), [
+                'code' => '123456'
+            ])
+            ->assertFound();
+
+        $this->actingAs($user)
+            ->post(route('games.send', ['game' => 1]), [
+                'amount' => '500',
+                'to' => $user2->players->first()->id,
+            ])
+            ->assertFound();
+
+        $this->actingAs($user)
+            ->post(route('games.bank', ['game' => 1]), [
+                'amount' => '1000',
+                'type' => BankMovementType::Withdraw->value,
+            ])
+            ->assertFound();
+
+        $this->actingAs($user2)
+            ->post(route('games.send', ['game' => 1]), [
+                'amount' => '500',
+                'to' => $user->players->first()->id,
+            ])
+            ->assertFound();
+
+        $player1 = $user->players->first();
+        $this->assertInstanceOf('Illuminate\Support\Collection', $player1->getMovements());
     }
 }
