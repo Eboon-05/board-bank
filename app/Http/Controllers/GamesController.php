@@ -53,31 +53,6 @@ class GamesController extends Controller
         return view('games.show', ['game' => $game, 'links' => $links]);
     }
 
-    public function create() {
-        return view('games.create');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'code' => 'required|unique:App\Models\Game,code',
-            'initial_balance' => 'required',
-        ]);
-
-        $game = Game::create([
-            'code' => $request->code,
-            'initial_balance' => $request->initial_balance,
-        ]);
-
-        Player::create([
-            'game_id' => $game->id,
-            'user_id' => Auth::id(),
-            'balance' => $request->initial_balance,
-        ]);
-
-        return redirect()->route('games.show', $game);
-    }
-
     public function join(Request $request)
     {
         $request->validate([
