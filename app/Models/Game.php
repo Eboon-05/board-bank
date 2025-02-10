@@ -4,14 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Models\Player;
 
 class Game extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'code',
         'initial_balance'
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => \App\Events\GameCreated::class,
     ];
 
     /**
