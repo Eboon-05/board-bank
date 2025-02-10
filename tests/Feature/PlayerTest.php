@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use App\Models\User;
+use App\Models\Game;
 
 class PlayerTest extends TestCase
 {
@@ -119,13 +120,12 @@ class PlayerTest extends TestCase
         $user = User::factory()->create();
         $user2 = User::factory()->create();
 
-        $this->actingAs($user)
-            ->post(route('games.store'), [
-                'code' => '123456',
-                'initial_balance' => 1000
-            ])
-            ->assertFound();
+        $this->actingAs($user);
 
+        Game::factory()->create([
+            'code' => '123456',
+            'initial_balance' => 1000
+        ]);
         
         $this->actingAs($user2)
             ->post(route('games.join'), [
@@ -155,6 +155,8 @@ class PlayerTest extends TestCase
             ->assertFound();
 
         $player1 = $user->players->first();
-        $this->assertInstanceOf('Illuminate\Support\Collection', $player1->getMovements());
+        $movements = $player1->getMovements();
+        $this->assertNotEmpty($movements);
+        $this->assertInstanceOf('Illuminate\Support\Collection', $movements);
     }
 }

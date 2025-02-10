@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
+use App\Models\PlayerTransaction;
+use App\Models\BankTransaction;
 
 class Player extends Model
 {
@@ -20,14 +22,13 @@ class Player extends Model
     }
 
     public function getMovements() {
-        $player = DB::table('player_transactions')
-            ->where('from_player_id', $this->id)
+        $player = PlayerTransaction::where('from_player_id', $this->id)
             ->orWhere('to_player_id', $this->id)
             ->orderBy('created_at', 'desc')
+            ->with('fromPlayer', 'toPlayer')
             ->get();
 
-        $bank = DB::table('bank_transactions')
-            ->where('player_id', $this->id)
+        $bank = BankTransaction::where('player_id', $this->id)
             ->orderBy('created_at', 'desc')
             ->get();
 
