@@ -19,7 +19,7 @@ class GamesController extends Controller
             [
                 'name' => 'Withdraw',
                 'url' => route(
-                    'games.bank',
+                    'games.movement',
                     [
                         'type' => BankMovementType::Withdraw,
                         'game' => $game->id
@@ -30,7 +30,7 @@ class GamesController extends Controller
             [
                 'name' => 'Send',
                 'url' => route(
-                    'games.send',
+                    'games.movement',
                     [
                         'game' => $game->id
                     ]
@@ -40,7 +40,7 @@ class GamesController extends Controller
             [
                 'name' => 'Pay',
                 'url' => route(
-                    'games.bank',
+                    'games.movement',
                     [
                         'type' => BankMovementType::Payment,
                         'game' => $game->id
@@ -50,7 +50,9 @@ class GamesController extends Controller
             ]
         ];
 
-        return view('games.show', ['game' => $game, 'links' => $links]);
+        $player_movements = $game->userPlayer->getMovements();
+
+        return view('games.show', compact('game', 'links', 'player_movements'));
     }
 
     public function join(Request $request)
@@ -117,5 +119,9 @@ class GamesController extends Controller
         ]);
 
         return redirect()->route('games.show', $game);
+    }
+
+    public function movement(Request $request) {
+        return view('games.movement', ['type' => $request->type]);
     }
 }
