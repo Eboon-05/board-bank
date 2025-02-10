@@ -22,12 +22,6 @@ class GameCreateForm extends Form
 
         $game = Game::create($this->all());
 
-        Player::create([
-            'game_id' => $game->id,
-            'user_id' => Auth::id(),
-            'balance' => $this->initial_balance,
-        ]);
-
         return redirect()->route('games.show', $game);
     }
 }

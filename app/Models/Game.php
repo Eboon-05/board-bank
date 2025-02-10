@@ -38,4 +38,11 @@ class Game extends Model
             'user_id' => Auth::id(),
         ]);
     }
+
+    public function player(User $user) {
+        return $this->hasOne(Player::class)->where([
+            'game_id' => $this->id,
+            'user_id' => $user->id,
+        ]);
+    }
 }

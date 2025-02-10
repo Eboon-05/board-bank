@@ -17,14 +17,9 @@ class GameTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user)
-            ->post(route('games.store'), [
-                'code' => '123456',
-                'initial_balance' => 1000
-            ])
-            ->assertFound();
+        $this->actingAs($user);
 
-        $this->assertDatabaseHas('games', [
+        Game::factory()->create([
             'code' => '123456',
             'initial_balance' => 1000
         ]);
@@ -40,12 +35,12 @@ class GameTest extends TestCase
         $user = User::factory()->create();
         $user2 = User::factory()->create();
 
-        $this->actingAs($user)
-            ->post(route('games.store'), [
-                'code' => '123456',
-                'initial_balance' => 1000
-            ])
-            ->assertFound();
+        $this->actingAs($user);
+
+        Game::factory()->create([
+            'code' => '123456',
+            'initial_balance' => 1000
+        ]);
 
         $this->actingAs($user2)
             ->post(route('games.join'), [
@@ -64,20 +59,19 @@ class GameTest extends TestCase
         ]);
     }
 
-    public function test_game_players_created()
-    {
+    public function test_only_players_in_the_game_can_access() {
         $user = User::factory()->create();
+        $user2 = User::factory()->create();
 
         $this->actingAs($user);
 
-        Game::factory()->create([
+        $game = Game::factory()->create([
             'code' => '123456',
             'initial_balance' => 1000
         ]);
 
-        $this->assertDatabaseHas('players', [
-            'user_id' => $user->id,
-            'balance' => 1000
-        ]);
+        $this->actingAs($user2)
+            ->get(route('games.show', ['game' => $game->id]))
+            ->assertForbidden();
     }
 }

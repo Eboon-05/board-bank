@@ -14,7 +14,11 @@ use App\BankMovementType;
 
 class GamesController extends Controller
 {
-    public function show(Game $game) {
+    public function show(Request $request, Game $game) {
+        if ($request->user()->cannot('view', $game)) {
+            return abort(403, 'You are not in this game.');
+        }
+
         $links = [
             [
                 'name' => 'Withdraw',
