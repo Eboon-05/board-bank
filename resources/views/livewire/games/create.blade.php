@@ -1,14 +1,21 @@
 <?php
 
-use function Livewire\Volt\{layout, form};
+use function Livewire\Volt\{layout, form, mount};
+use Illuminate\Support\Facades\Auth;
 
 use App\Livewire\Forms\GameCreateForm;
 
 layout('layouts.app');
 form(GameCreateForm::class);
 
+mount(function () {
+    $this->form->user_id = Auth::id();
+});
+
 $save = function () {
-    $this->form->store();
+    $game = $this->form->store();
+
+    return $this->redirectRoute('games.show', ['game' => $game]);
 }
 
 ?>

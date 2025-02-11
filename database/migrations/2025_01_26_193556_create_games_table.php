@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->string('code')->unique();
             $table->float('initial_balance');
+            $table->foreignId('user_id')->constrained();
             
             $table->timestamps();
         });

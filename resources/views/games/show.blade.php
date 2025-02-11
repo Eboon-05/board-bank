@@ -2,6 +2,8 @@
     <header class='p-4'>
         <p class='text-gray-400'>Game code:</p>
         <h1 class='text-2xl font-semibold'>{{ $game->code }}</h1>
+
+        <p>{{ $game->user->name }}</p>
     </header>
 
     <section class='p-4'>

@@ -14,7 +14,8 @@ class Game extends Model
 
     protected $fillable = [
         'code',
-        'initial_balance'
+        'initial_balance',
+        'user_id'
     ];
 
     protected $dispatchesEvents = [
@@ -44,5 +45,9 @@ class Game extends Model
             'game_id' => $this->id,
             'user_id' => $user->id,
         ]);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }
