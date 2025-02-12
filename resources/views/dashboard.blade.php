@@ -16,7 +16,7 @@
             <input
                 type='text'
                 name='code'
-                class='mt-2 bg-gray-200 rounded-md p-2 w-full border-0 outline-none focus:ring-2 focus:ring-secondary'
+                class='mt-2 bg-gray-200 rounded-lg w-full border-0 outline-none focus:ring-2 focus:ring-gray-300'
             />
             @error('code')
                 <p class='text-red-500'>{{ $message }}</p>

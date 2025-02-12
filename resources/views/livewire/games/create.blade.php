@@ -21,6 +21,8 @@ $save = function () {
 ?>
 
 <form wire:submit='save' class='p-6'>
+    <h1 class='mb-2 text-xl font-bold'>Create a game</h1>
+
     @csrf
     <label for='code'>Game code</label>
     <p class='text-sm text-gray-600'>
