@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
+use App\Models\Game;
 use App\Models\PlayerTransaction;
 use App\Models\BankTransaction;
 
@@ -19,6 +20,10 @@ class Player extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function game() {
+        return $this->belongsTo(Game::class);
     }
 
     public function getMovements() {

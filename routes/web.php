@@ -7,10 +7,6 @@ use App\Http\Controllers\GamesController;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
@@ -21,6 +17,7 @@ Route::prefix('games')
     ->group(function () {
         Volt::route('/create', 'games.create')->name('games.create');
 
+        Route::get('/', 'index')->name('games.index');
         Route::post('/join', 'join')->name('games.join');
 
         Route::get('/{game}', 'show')->name('games.show');

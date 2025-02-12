@@ -6,11 +6,18 @@
         A simulated bank for your board games.
     </p>
 
-    <a href="{{ route('register') }}" class='block bg-primary hover:bg-primary-dark text-center text-white p-2 rounded-md mt-2'>
-        Register
-    </a>
+    @auth
+        <p>Welcome back!</p>
+        <a href="{{ route('games.index') }}" class='block bg-gray-200 hover:bg-gray-300 text-center  p-2 rounded-md mt-2'>
+            Home
+        </a>
+    @else
+        <a href="{{ route('register') }}" class='block bg-primary hover:bg-primary-dark text-center text-white p-2 rounded-md mt-2'>
+            Register
+        </a>
 
-    <a href="{{ route('login') }}" class='block bg-gray-200 hover:bg-gray-300 text-center  p-2 rounded-md mt-2'>
-        Login
-    </a>
+        <a href="{{ route('login') }}" class='block bg-gray-200 hover:bg-gray-300 text-center  p-2 rounded-md mt-2'>
+            Login
+        </a>
+    @endauth
 </x-guest-layout>

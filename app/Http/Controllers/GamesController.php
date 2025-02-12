@@ -128,4 +128,8 @@ class GamesController extends Controller
     public function movement(Request $request) {
         return view('games.movement', ['type' => $request->type]);
     }
+
+    public function index() {
+        return view('games.index');
+    }
 }
