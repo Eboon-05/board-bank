@@ -129,7 +129,11 @@ class GamesController extends Controller
         return view('games.movement', ['type' => $request->type]);
     }
 
-    public function index() {
-        return view('games.index');
+    public function index(Request $request) {
+        $user_players = $request->user()->players;
+
+        $game_list = $user_players->map(fn($player) => $player->game);
+
+        return view('games.index', compact('game_list'));
     }
 }

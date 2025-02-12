@@ -4,6 +4,7 @@
             Board bank
         </h1>
     </header>
+
     <form
         action="{{ route('games.join') }}"
         method='POST'
@@ -42,4 +43,14 @@
             </p>
         </div>
     </form>
+
+    <section class='p-4'>
+        <h1 class='text-xl font-semibold mb-2'>
+            Your games
+        </h1>
+
+        @foreach ($game_list as $game)
+            {{ $game->code }}
+        @endforeach
+    </section>
 </x-app-layout>
