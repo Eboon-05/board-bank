@@ -78,30 +78,6 @@ class GamesController extends Controller
         return redirect()->route('games.show', $game);
     }
 
-    public function send_money(Request $request, Game $game)
-    {
-        $request->validate([
-            'amount' => 'required|numeric',
-            'to' => 'required|int',
-        ]);
-
-        $to = Player::find($request->to);
-        $to->balance += $request->amount;
-        $to->save();
-
-        $game->userPlayer->balance -= $request->amount;
-        $game->userPlayer->save();
-
-        PlayerTransaction::create([
-            'game_id' => $game->id,
-            'from_player_id' => $game->userPlayer->id,
-            'to_player_id' => $to->id,
-            'amount' => $request->amount,
-        ]);
-
-        return redirect()->route('games.show', $game);
-    }
-
     public function movement(Request $request, Game $game) {
         $type = $request->type;
         $players = null;
