@@ -31,14 +31,18 @@
 
         <h2 class='text-xl mt-8 font-semibold'>Movements</h2>
 
-        @foreach ($player_movements as $mov)
-            {{ $mov->amount }}
+        <ul>
+            @foreach ($player_movements as $mov)
+                <li>
+                    {{ $mov->amount }}
 
-            @if (empty($mov->type))
-                {{-- Player transaction --}}
-            @else
-                {{-- Bank Transaction --}}
-            @endif            
-        @endforeach
+                    @if (empty($mov->type))
+                        {{-- Player transaction --}}
+                    @else
+                        {{-- Bank Transaction --}}
+                    @endif            
+                </li>
+            @endforeach
+        </ul>
     </section>
 </x-app-layout>

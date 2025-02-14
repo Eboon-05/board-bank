@@ -76,31 +76,6 @@ class GamesController extends Controller
         return redirect()->route('games.show', $game);
     }
 
-    public function bank_movement(Request $request, Game $game)
-    {
-        $request->validate([
-            'amount' => 'required|numeric',
-            'type' => 'required|int'
-        ]);
-
-        BankTransaction::create([
-            'game_id' => $game->id,
-            'player_id' => $game->userPlayer->id,
-            'amount' => $request->amount,
-            'type' => $request->type,
-        ]);
-
-        if ($request->type === BankMovementType::Withdraw->value) {
-            $game->userPlayer->balance += $request->amount;
-        } else {
-            $game->userPlayer->balance -= $request->amount;
-        }
-
-        $game->userPlayer->save();
-
-        return redirect()->route('games.show', $game);
-    }
-
     public function send_money(Request $request, Game $game)
     {
         $request->validate([

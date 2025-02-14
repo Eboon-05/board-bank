@@ -26,7 +26,6 @@ class BankForm extends Form
 
         $game = Game::find($this->game_id);
 
-
         BankTransaction::create([
             'game_id' => $game->id,
             'player_id' => $game->userPlayer->id,
