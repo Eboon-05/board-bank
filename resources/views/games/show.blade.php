@@ -34,9 +34,9 @@
         <ul>
             @foreach ($player_movements as $mov)
                 <li>
-                    {{ $mov->amount }}
+                    {{ $mov['amount'] }}
 
-                    @if (empty($mov->type))
+                    @if (empty($mov['type']))
                         {{-- Player transaction --}}
                     @else
                         {{-- Bank Transaction --}}

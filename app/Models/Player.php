@@ -31,13 +31,29 @@ class Player extends Model
             ->orWhere('to_player_id', $this->id)
             ->orderBy('created_at', 'desc')
             ->with('fromPlayer', 'toPlayer')
-            ->get();
+            ->get()
+            ->toArray();
 
         $bank = BankTransaction::where('player_id', $this->id)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->get()
+            ->toArray();
+            
+        $result = array_merge($player, $bank);
+        
+        usort($result, function ($a, $b) {
+            $a_date = date_create($a['created_at']);
+            $b_date = date_create($b['created_at']);
+            $diff = date_diff($a_date, $b_date);
 
-        return $player->merge($bank)->sortByDesc('created_at');
+            if ($diff->invert) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+
+        return $result;
     }
 
     public function bankTransactions() {
