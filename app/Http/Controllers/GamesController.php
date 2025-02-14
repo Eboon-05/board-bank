@@ -12,6 +12,8 @@ use App\Models\PlayerTransaction;
 
 use App\BankMovementType;
 
+use function PHPSTORM_META\type;
+
 class GamesController extends Controller
 {
     public function show(Request $request, Game $game) {
@@ -102,12 +104,17 @@ class GamesController extends Controller
 
     public function movement(Request $request, Game $game) {
         $type = $request->type;
+        $players = null;
+
+        $game = Game::with('players.user')->find($game->id);
 
         if (is_numeric($type)) {
             $type = BankMovementType::from($type);
+        } else if (empty($type)) {
+            $players = $game->players;
         }
 
-        return view('games.movement', ['type' => $type, 'game_id' => $game->id]);
+        return view('games.movement', ['type' => $type, 'game_id' => $game->id, 'players' => $players]);
     }
 
     public function index(Request $request) {

@@ -1,11 +1,7 @@
-@php
-use App\BankMovementType;
-@endphp
-
 <x-app-layout>
     <header class='p-4'>
         @if (empty($type))
-            Send money to another player
+            @livewire('games.forms.player', ['players' => $players, 'game_id' => $game_id])
         @else
             @livewire('games.forms.bank', ['type' => $type, 'game_id' => $game_id])
         @endif
