@@ -111,7 +111,7 @@ class GamesController extends Controller
         if (is_numeric($type)) {
             $type = BankMovementType::from($type);
         } else if (empty($type)) {
-            $players = $game->players;
+            $players = $game->players->except([$game->userPlayer->id]);
         }
 
         return view('games.movement', ['type' => $type, 'game_id' => $game->id, 'players' => $players]);

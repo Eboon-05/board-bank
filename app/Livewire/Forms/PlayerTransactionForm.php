@@ -12,9 +12,6 @@ use App\Models\PlayerTransaction;
 class PlayerTransactionForm extends Form
 {
     #[Validate('required|integer')]
-    public $from_player_id = '';
-
-    #[Validate('required|integer')]
     public $to_player_id = '';
     
     #[Validate('required|numeric')]
