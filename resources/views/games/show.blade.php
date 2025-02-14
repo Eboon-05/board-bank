@@ -1,9 +1,10 @@
 <x-app-layout>
-    <header class='p-4'>
-        <p class='text-gray-400'>Game code:</p>
-        <h1 class='text-2xl font-semibold'>{{ $game->code }}</h1>
-
-        <p>{{ $game->user->name }}</p>
+    <header class='p-4 flex justify-between items-center'>
+        <div>
+            <p class='text-gray-400'>Game code:</p>
+            <h1 class='text-2xl font-semibold'>{{ $game->code }}</h1>
+        </div>
+        <a>Settings</a>
     </header>
 
     <section class='p-4'>
@@ -29,5 +30,15 @@
 
 
         <h2 class='text-xl mt-8 font-semibold'>Movements</h2>
+
+        @foreach ($player_movements as $mov)
+            {{ $mov->amount }}
+
+            @if (empty($mov->type))
+                {{-- Player transaction --}}
+            @else
+                {{-- Bank Transaction --}}
+            @endif            
+        @endforeach
     </section>
 </x-app-layout>

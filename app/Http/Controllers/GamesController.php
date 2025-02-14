@@ -126,7 +126,13 @@ class GamesController extends Controller
     }
 
     public function movement(Request $request) {
-        return view('games.movement', ['type' => $request->type]);
+        $type = $request->type;
+
+        if (is_numeric($type)) {
+            $type = BankMovementType::from($type);
+        }
+
+        return view('games.movement', ['type' => $type]);
     }
 
     public function index(Request $request) {

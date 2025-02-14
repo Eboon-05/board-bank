@@ -49,8 +49,13 @@
             Your games
         </h1>
 
-        @foreach ($game_list as $game)
-            {{ $game->code }}
-        @endforeach
+        <ul>
+            @foreach ($game_list as $game)
+                <li>
+                    {{ $game->code }}
+                    <a href="{{ route('games.show', $game) }}">Go</a>
+                </li>
+            @endforeach
+        </ul>
     </section>
 </x-app-layout>
