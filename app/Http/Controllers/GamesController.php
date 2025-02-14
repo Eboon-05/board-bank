@@ -125,14 +125,14 @@ class GamesController extends Controller
         return redirect()->route('games.show', $game);
     }
 
-    public function movement(Request $request) {
+    public function movement(Request $request, Game $game) {
         $type = $request->type;
 
         if (is_numeric($type)) {
             $type = BankMovementType::from($type);
         }
 
-        return view('games.movement', ['type' => $type]);
+        return view('games.movement', ['type' => $type, 'game_id' => $game->id]);
     }
 
     public function index(Request $request) {
