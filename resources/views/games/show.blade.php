@@ -29,19 +29,18 @@
         </div>
 
 
-        <h2 class='text-xl mt-8 font-semibold'>Movements</h2>
+        <h2 class='text-xl mt-8 mb-4 font-semibold'>Movements</h2>
 
         <ul>
             @foreach ($player_movements as $mov)
-                <li>
-                    {{ $mov['amount'] }}
-
-                    @if (empty($mov['type']))
-                        {{-- Player transaction --}}
-                    @else
-                        {{-- Bank Transaction --}}
-                    @endif            
-                </li>
+                @if (array_key_exists('type', $mov))
+                    {{-- Bank movement --}}
+                    @include('games._bank_movement')
+                @else
+                    {{-- Player movement --}}
+                    @include('games._player_movement')
+                @endif
+                <hr class='my-4' />
             @endforeach
         </ul>
     </section>

@@ -12,8 +12,6 @@ use App\Models\PlayerTransaction;
 
 use App\BankMovementType;
 
-use function PHPSTORM_META\type;
-
 class GamesController extends Controller
 {
     public function show(Request $request, Game $game) {

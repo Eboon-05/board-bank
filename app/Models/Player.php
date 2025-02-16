@@ -30,7 +30,7 @@ class Player extends Model
         $player = PlayerTransaction::where('from_player_id', $this->id)
             ->orWhere('to_player_id', $this->id)
             ->orderBy('created_at', 'desc')
-            ->with('fromPlayer', 'toPlayer')
+            ->with('fromPlayer.user', 'toPlayer.user')
             ->get()
             ->toArray();
 
