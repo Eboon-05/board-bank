@@ -2,7 +2,7 @@
 
 locale_set_default('es_AR');
 $date = date_create($mov['created_at']);
-$date->setTimezone(new DateTimeZone('America/Buenos_Aires'));
+$date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
 
 @endphp
 

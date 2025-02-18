@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 
 locale_set_default('es_AR');
 $date = date_create($mov['created_at']);
-$date->setTimezone(new DateTimeZone('America/Buenos_Aires'));
+$date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
 
 $income = $mov['to_player_id'] === Auth::id();
 

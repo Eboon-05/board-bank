@@ -8,18 +8,20 @@
     </header>
 
     <section class='p-4'>
-        <div class='bg-gradient text-white shadow-2xl p-4 rounded-xl'>
+        <div class='bg-gradient text-white shadow-2xl p-4 sm:px-12 rounded-xl'>
             <h2 class='text-2xl font-medium'>Balance</h2>
             <p class='text-6xl my-4 font-geo'>
                 $ {{ $game->userPlayer->balance }}
             </p>
-            <nav class='grid grid-cols-3'>
+            <nav class='grid grid-cols-3 max-w-sm mx-auto'>
                 @foreach ($links as $link)
                     <a href="{{ $link['url'] }}" class='flex flex-col justify-center items-center'>
                         <div
                             class='flex justify-center items-center bg-white text-black bg-opacity-20 rounded-full w-min p-[12px]'>
                             <div class='bg-white w-12 h-12 rounded-full flex justify-center items-center'>
-                                {!! $link['icon'] !!}
+                                <div class='w-2/3'>
+                                    {!! $link['icon'] !!}
+                                </div>
                             </div>
                         </div>
                         <p class='text-center mt-2'>{{ $link['name'] }}</p>
@@ -29,7 +31,13 @@
         </div>
 
 
-        <h2 class='text-xl mt-8 mb-4 font-semibold'>Movements</h2>
+        <div class='flex justify-between items-center my-6'>
+            <h2 class='text-2xl font-semibold'>Movements</h2>
+
+            <a class='block bg-gray-200 hover:bg-gray-300 transition-color p-2 rounded-xl'>
+                See all
+            </a>
+        </div>
 
         <ul>
             @foreach ($player_movements as $mov)

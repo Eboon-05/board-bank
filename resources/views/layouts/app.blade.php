@@ -19,7 +19,7 @@
         ])
     </head>
     <body class="font-sans antialiased">
-        <main>
+        <main class='max-w-screen-sm mx-auto'>
             {{ $slot }}
         </main>
     </body>
