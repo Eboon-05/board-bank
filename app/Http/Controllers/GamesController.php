@@ -91,6 +91,18 @@ class GamesController extends Controller
         return view('games.movement', ['type' => $type, 'game_id' => $game->id, 'players' => $players]);
     }
 
+    public function movements(Request $request, Game $game) {
+        $player = null;
+        
+        if ($request->player) {
+            $player = Player::find($request->player);
+        } else {
+            $player = $game->userPlayer;
+        }
+
+        return view('games.movements', compact('player', 'game'));
+    }
+
     public function index(Request $request) {
         $user_players = $request->user()->players;
 

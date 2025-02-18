@@ -22,6 +22,7 @@ Route::prefix('games')
 
         Route::get('/{game}', 'show')->name('games.show');
         Route::get('/{game}/movement', 'movement')->name('games.movement');
+        Route::get('/{game}/movements', 'movements')->name('games.movements');
 
         Route::post('/{game}/send', 'send_money')->name('games.send');
     });

@@ -31,7 +31,8 @@
         </div>
 
         <h2 class='text-2xl font-semibold mt-8 mb-2'>Movements</h2>
-        <a class='block text-center bg-gray-200 hover:bg-gray-300 transition-colors mb-6 p-2 rounded-lg'>
+        <a href="{{ route('games.movements', compact('game')) }}"
+            class='block cursor-pointer text-center bg-gray-200 hover:bg-gray-300 transition-colors mb-6 p-2 rounded-lg'>
             See all
         </a>
 
