@@ -26,16 +26,18 @@ class Player extends Model
         return $this->belongsTo(Game::class);
     }
 
-    public function getMovements() {
+    public function getMovements(int $limit = null) {
         $player = PlayerTransaction::where('from_player_id', $this->id)
             ->orWhere('to_player_id', $this->id)
             ->orderBy('created_at', 'desc')
             ->with('fromPlayer.user', 'toPlayer.user')
+            ->limit($limit)
             ->get()
             ->toArray();
 
         $bank = BankTransaction::where('player_id', $this->id)
             ->orderBy('created_at', 'desc')
+            ->limit($limit)
             ->get()
             ->toArray();
             

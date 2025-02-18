@@ -54,7 +54,7 @@ class GamesController extends Controller
             ]
         ];
 
-        $player_movements = $game->userPlayer->getMovements();
+        $player_movements = $game->userPlayer->getMovements(2);
 
         return view('games.show', compact('game', 'links', 'player_movements'));
     }

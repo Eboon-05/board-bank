@@ -30,16 +30,12 @@
             </nav>
         </div>
 
+        <h2 class='text-2xl font-semibold mt-8 mb-2'>Movements</h2>
+        <a class='block text-center bg-gray-200 hover:bg-gray-300 transition-colors mb-6 p-2 rounded-lg'>
+            See all
+        </a>
 
-        <div class='flex justify-between items-center my-6'>
-            <h2 class='text-2xl font-semibold'>Movements</h2>
-
-            <a class='block bg-gray-200 hover:bg-gray-300 transition-color p-2 rounded-xl'>
-                See all
-            </a>
-        </div>
-
-        <ul>
+        <ul class='max-w-sm mx-auto'>
             @foreach ($player_movements as $mov)
                 @if (array_key_exists('type', $mov))
                     {{-- Bank movement --}}
