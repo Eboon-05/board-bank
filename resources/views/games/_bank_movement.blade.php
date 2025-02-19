@@ -1,8 +1,8 @@
 @php
 
-locale_set_default('es_AR');
-$date = date_create($mov['created_at']);
-$date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
+    locale_set_default('es_AR');
+    $date = date_create($mov['created_at']);
+    $date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
 
 @endphp
 
@@ -13,7 +13,11 @@ $date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
         </div>
         <div class='flex justify-end items-center'>
             <div class='text-center mr-2 opacity-70'>
-                Bank @if ($mov['type'] === 0) withdraw @else payment @endif
+                Bank @if ($mov['type'] === 0)
+                    withdraw
+                @else
+                    payment
+                @endif
             </div>
             <div
                 class='@if ($mov['type'] === 0) border-green-400 text-green-400 @else border-red-400 text-red-400 @endif p-2 border-2 flex justify-center items-center rounded-lg'>
@@ -36,11 +40,22 @@ $date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
         </div>
     </div>
     <div class='text-center opacity-70 grid grid-cols-2'>
-        <p>
+        <div class='flex justify-center items-center'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+            </svg>
             {{ $date->format('d/m/y') }}
-        </p>
-        <p>
+        </div>
+        <div class='flex justify-center items-center'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+
             {{ $date->format('H:i') }}
-        </p>
+        </div>
     </div>
 </li>
