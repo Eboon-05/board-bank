@@ -21,7 +21,6 @@ class BankForm extends Form
     public $game_id = '';
 
     public function store() {
-        // dd($this->all());
         $this->validate();
 
         $game = Game::find($this->game_id);
@@ -32,14 +31,6 @@ class BankForm extends Form
             'amount' => $this->amount,
             'type' => $this->type,
         ]);
-
-        if ($this->type === BankMovementType::Withdraw->value) {
-            $game->userPlayer->balance += $this->amount;
-        } else {
-            $game->userPlayer->balance -= $this->amount;
-        }
-
-        $game->userPlayer->save();
 
         return redirect()->route('games.show', $game);
     }

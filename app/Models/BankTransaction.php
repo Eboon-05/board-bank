@@ -9,6 +9,10 @@ use App\BankMovementType;
 
 class BankTransaction extends Model
 {
+    protected $dispatchesEvents = [
+        'created' => \App\Events\BankTransaction::class,
+    ];
+
     protected $fillable = [
         'game_id',
         'player_id',
