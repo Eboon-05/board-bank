@@ -51,9 +51,24 @@
 
         <ul>
             @foreach ($game_list as $game)
-                <li>
-                    {{ $game->code }}
-                    <a href="{{ route('games.show', $game) }}">Go</a>
+                <li class='border-2 border-primary rounded-lg mb-2 shadow-sm max-w-sm mx-auto'>
+                    <div class='p-2'>
+                        <p class='opacity-80'>Game code</p>
+                        <h3 class='text-lg font-semibold'>
+                            {{ $game->code }}
+                        </h3>
+                    </div>
+                    <div class='flex justify-between items-end'>
+                        <div class='p-2 pt-0'>
+                            <p>
+                                Players:
+                                @foreach ($game->players as $player)
+                                    {{ $player->user->name }}@if (!$loop->last), @endif
+                                @endforeach
+                            </p>
+                        </div>
+                        <a class='block bg-primary rounded-tl-lg p-4 text-white' href="{{ route('games.show', $game) }}">Go</a>
+                    </div>
                 </li>
             @endforeach
         </ul>
