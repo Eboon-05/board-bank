@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-layouts.game :game="$game">
     <header class='p-4'>
         @if (empty($type))
             @livewire('games.forms.player', ['players' => $players, 'game_id' => $game_id])
@@ -6,4 +6,4 @@
             @livewire('games.forms.bank', ['type' => $type, 'game_id' => $game_id])
         @endif
     </header>
-</x-app-layout>
+</x-layouts.game>

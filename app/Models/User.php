@@ -46,7 +46,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function players() {
+    public function players()
+    {
         return $this->hasMany(Player::class);
+    }
+
+    public function isInGame(int $gameId)
+    {
+        return $this->players()->where('game_id', $gameId)->where('user_id', $this->id)->exists();
     }
 }

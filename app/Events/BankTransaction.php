@@ -11,8 +11,9 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 use App\Models\BankTransaction as BankTransactionModel;
+use Illuminate\Support\Facades\Log;
 
-class BankTransaction
+class BankTransaction implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -33,8 +34,10 @@ class BankTransaction
      */
     public function broadcastOn(): array
     {
+        Log::debug($this->bankTransaction->game_id);
+
         return [
-            new PrivateChannel('channel-name'),
+            new Channel('game.' . $this->bankTransaction->game_id),
         ];
     }
 }
